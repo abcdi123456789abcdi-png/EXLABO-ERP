@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 160" width="420" height="160">
+  <defs>
+    <!-- تدرج حرف X -->
+    <linearGradient id="xGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1976D2;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#29B6F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00BCD4;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- تدرج السداسيات الممتلئة -->
+    <linearGradient id="hexFill1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1565C0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00BCD4;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="hexFill2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E88E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#26C6DA;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="hexFill3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#42A5F5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4DD0E1;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- توهج خفيف -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- الخلفية الداكنة -->
+  <rect width="420" height="160" fill="#0a1628"/>
+  
+  <!-- ==================== السداسيات على اليمين ==================== -->
+  <g transform="translate(320, 30)">
+    
+    <!-- السداسي العلوي الصغير (مفرغ - outline فقط) -->
+    <polygon 
+      points="15,0 27,7 27,21 15,28 3,21 3,7" 
+      fill="none" 
+      stroke="#4FC3F7" 
+      stroke-width="1.8"
+      opacity="0.85"/>
+    
+    <!-- السداسي الكبير الممتلئ (أعلى يمين) -->
+    <polygon 
+      points="40,15 60,26 60,50 40,61 20,50 20,26" 
+      fill="url(#hexFill1)"
+      opacity="0.95"/>
+    
+    <!-- السداسي المتوسط الممتلئ (يمين) -->
+    <polygon 
+      points="65,40 80,49 80,65 65,74 50,65 50,49" 
+      fill="url(#hexFill2)"
+      opacity="0.9"/>
+    
+    <!-- السداسي الأوسط الممتلئ (وسط) -->
+    <polygon 
+      points="35,55 55,66 55,90 35,101 15,90 15,66" 
+      fill="url(#hexFill3)"
+      opacity="0.85"/>
+    
+    <!-- السداسي السفلي الممتلئ (أسفل يسار) -->
+    <polygon 
+      points="10,80 28,90 28,108 10,118 -8,108 -8,90" 
+      fill="url(#hexFill1)"
+      opacity="0.8"/>
+    
+    <!-- السداسي السفلي الأيمن (مفرغ - outline) -->
+    <polygon 
+      points="55,95 73,105 73,123 55,133 37,123 37,105" 
+      fill="none" 
+      stroke="#4FC3F7" 
+      stroke-width="1.8"
+      opacity="0.75"/>
+    
+    <!-- السداسي الصغير الممتلئ (أسفل) -->
+    <polygon 
+      points="25,110 40,118 40,134 25,142 10,134 10,118" 
+      fill="url(#hexFill2)"
+      opacity="0.7"/>
+    
+  </g>
+  
+  <!-- ==================== النص EXLABO ==================== -->
+  <g transform="translate(20, 85)">
+    
+    <!-- حرف E -->
+    <text x="0" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="#ffffff"
+          letter-spacing="0">E</text>
+    
+    <!-- حرف X بتدرج -->
+    <text x="36" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="url(#xGrad)"
+          letter-spacing="0">X</text>
+    
+    <!-- حرف L -->
+    <text x="74" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="#ffffff"
+          letter-spacing="0">L</text>
+    
+    <!-- حرف A -->
+    <text x="108" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="#ffffff"
+          letter-spacing="0">A</text>
+    
+    <!-- النقطة الزرقاء تحت حرف A -->
+    <circle cx="128" cy="12" r="3.5" fill="#29B6F6"/>
+    
+    <!-- حرف B -->
+    <text x="142" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="#ffffff"
+          letter-spacing="0">B</text>
+    
+    <!-- حرف O -->
+    <text x="178" y="0" 
+          font-family="'Arial Black', 'Segoe UI Black', sans-serif" 
+          font-size="52" 
+          font-weight="900" 
+          fill="#ffffff"
+          letter-spacing="0">O</text>
+    
+  </g>
+  
+  <!-- ==================== النص الفرعي الأول ==================== -->
+  <text x="22" y="115" 
+        font-family="'Segoe UI', 'Arial', sans-serif" 
+        font-size="11" 
+        font-weight="600" 
+        fill="#4FC3F7" 
+        letter-spacing="2.8">
+    SMART LABORATORY SOLUTIONS
+  </text>
+  
+  <!-- ==================== النص الفرعي الثاني مع الخطوط ==================== -->
+  <g transform="translate(22, 135)">
+    <!-- الخط الأيسر -->
+    <line x1="0" y1="0" x2="95" y2="0" stroke="#4FC3F7" stroke-width="1" opacity="0.6"/>
+    
+    <!-- نص FOR HUMANITY -->
+    <text x="100" y="4" 
+          font-family="'Segoe UI', 'Arial', sans-serif" 
+          font-size="11" 
+          font-weight="600" 
+          fill="#B3E5FC" 
+          letter-spacing="3.5">
+      FOR HUMANITY
+    </text>
+    
+    <!-- الخط الأيمن -->
+    <line x1="225" y1="0" x2="320" y2="0" stroke="#4FC3F7" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+</svg>

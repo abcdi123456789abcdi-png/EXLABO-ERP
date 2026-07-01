@@ -1,0 +1,23 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=.;Database=EXLABO;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+  },
+  "OpenAI": {
+    "ApiKey": "sk-your-openai-api-key-here",
+    "Model": "gpt-4o"
+  },
+  "EmailSettings": {
+    "SmtpHost": "smtp.exlabo.com",
+    "SmtpPort": "587",
+    "SmtpUser": "system@exlabo.com",
+    "SmtpPass": "YourPassword",
+    "WarehouseEmail": "warehouse@exlabo.com"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

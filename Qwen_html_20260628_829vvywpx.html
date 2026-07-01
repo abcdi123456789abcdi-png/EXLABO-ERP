@@ -1,0 +1,79 @@
+@{ ViewData["Title"] = "الرئيسية"; }
+<div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-users"></i></div><div class="stat-info"><div class="stat-label">إجمالي العملاء</div><div class="stat-value">@ViewBag.TotalCustomers</div></div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fas fa-vials"></i></div><div class="stat-info"><div class="stat-label">إجمالي المواد</div><div class="stat-value">@ViewBag.TotalItems</div></div></div>
+    <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-exclamation-triangle"></i></div><div class="stat-info"><div class="stat-label">منخفضة المخزون</div><div class="stat-value">@ViewBag.LowStockCount</div></div></div>
+    <div class="stat-card"><div class="stat-icon red"><i class="fas fa-calendar-times"></i></div><div class="stat-info"><div class="stat-label">منتهية الصلاحية</div><div class="stat-value">@ViewBag.ExpiredCount</div></div></div>
+    <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><div class="stat-label">طلبيات اليوم</div><div class="stat-value">@ViewBag.TotalTodayOrders</div></div></div>
+    <div class="stat-card"><div class="stat-icon cyan"><i class="fas fa-cubes"></i></div><div class="stat-info"><div class="stat-label">إجمالي المخزون</div><div class="stat-value">@ViewBag.TotalStock</div></div></div>
+</div>
+
+<div class="charts-grid">
+    <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">نظرة عامة على المخزون</div></div>
+        <div style="display:flex;align-items:center;gap:30px">
+            <canvas id="stockChart" width="200" height="200"></canvas>
+            <div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#1e88e5;border-radius:50%;margin-left:8px"></span>متوفر <strong>@ViewBag.AvailableStock</strong></div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#ff9800;border-radius:50%;margin-left:8px"></span>منخفض <strong>@ViewBag.LowStockQty</strong></div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#ffc107;border-radius:50%;margin-left:8px"></span>قريب الانتهاء <strong>@ViewBag.ExpiringStock</strong></div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#f44336;border-radius:50%;margin-left:8px"></span>منتهي <strong>@ViewBag.ExpiredStock</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">المواد قريبة من الانتهاء</div></div>
+        <table class="data-table">
+            <thead><tr><th>المادة</th><th>الدفعة</th><th>الانتهاء</th><th>الأيام</th></tr></thead>
+            <tbody>
+                @if(ViewBag.ExpiringSoonItems != null){foreach(var i in ViewBag.ExpiringSoonItems){<tr><td>@i.ItemName</td><td>@i.LotNumber</td><td>@i.ExpiryDate.ToString("dd-MM-yyyy")</td><td><span class="stock-badge @(i.DaysLeft<=30?"critical":"warning")">@i.DaysLeft يوم</span></td></tr>}}
+                else{<tr><td colspan="4" class="text-center">لا توجد مواد قريبة من الانتهاء (جميعها تنتهي نهاية 2027)</td></tr>}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tables-grid">
+    <div class="table-card">
+        <div class="table-header"><div class="table-title">⚠️ مواد منخفضة المخزون</div></div>
+        <table class="data-table">
+            <thead><tr><th>الكود</th><th>الاسم</th><th>الكمية</th><th>الحد</th></tr></thead>
+            <tbody>
+                @if(ViewBag.LowStockItems != null){foreach(var i in ViewBag.LowStockItems.Take(5)){<tr><td>@i.ItemCode</td><td>@i.ItemName</td><td><span class="stock-badge warning">@i.CurrentStock</span></td><td>@i.MinimumStock</td></tr>}}
+                else{<tr><td colspan="4" class="text-center text-success">✅ جميع المواد فوق الحد الأدنى</td></tr>}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-card">
+        <div class="table-header"><div class="table-title">🧪 آخر عمليات الصرف</div></div>
+        <table class="data-table">
+            <thead><tr><th>الرقم</th><th>العميل</th><th>التاريخ</th><th>الكمية</th></tr></thead>
+            <tbody>
+                @if(ViewBag.RecentOrders != null){foreach(var o in ViewBag.RecentOrders){<tr><td>ISS-@o.IssueID</td><td>@o.CustomerName</td><td>@o.IssueDate.ToString("dd-MM-yyyy")</td><td>@o.TotalItems</td></tr>}}
+                else{<tr><td colspan="4" class="text-center">لا توجد عمليات</td></tr>}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="bottom-stats">
+    <div class="bottom-stat-card">
+        <div class="bottom-stat-title">التنبيهات النشطة</div>
+        <ul class="alert-list">
+            @if(ViewBag.LowStockCount > 0){<li class="alert-item danger"><div class="alert-icon danger"><i class="fas fa-exclamation"></i></div><div class="alert-text">@ViewBag.LowStockCount مواد منخفضة المخزون</div></li>}
+            @if(ViewBag.ExpiredCount > 0){<li class="alert-item danger"><div class="alert-icon danger"><i class="fas fa-times"></i></div><div class="alert-text">@ViewBag.ExpiredCount مواد منتهية الصلاحية</div></li>}
+            @if(ViewBag.ExpiringSoonCount > 0){<li class="alert-item warning"><div class="alert-icon warning"><i class="fas fa-clock"></i></div><div class="alert-text">@ViewBag.ExpiringSoonCount مواد قريبة من الانتهاء</div></li>}
+            <li class="alert-item info"><div class="alert-icon info"><i class="fas fa-info"></i></div><div class="alert-text">جميع المواد تنتهي صلاحيتها نهاية 2027</div></li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+new Chart(document.getElementById('stockChart').getContext('2d'), {
+    type: 'doughnut',
+    data: { labels: ['متوفر','منخفض','قريب الانتهاء','منتهي'], datasets: [{ data: [@ViewBag.AvailableStock, @ViewBag.LowStockQty, @ViewBag.ExpiringStock, @ViewBag.ExpiredStock], backgroundColor: ['#1e88e5','#ff9800','#ffc107','#f44336'], borderWidth: 0 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, cutout: '70%' }
+});
+</script>
+}
